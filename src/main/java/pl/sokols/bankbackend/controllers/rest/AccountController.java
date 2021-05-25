@@ -1,4 +1,4 @@
-package pl.sokols.bankbackend.controllers;
+package pl.sokols.bankbackend.controllers.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
