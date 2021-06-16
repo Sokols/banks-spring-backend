@@ -1,13 +1,14 @@
 package pl.sokols.bankbackend.services;
 
-import pl.sokols.bankbackend.dtos.requests.BankRequest;
-import pl.sokols.bankbackend.dtos.responses.BankResponse;
+import pl.sokols.bankbackend.entities.BankEntity;
 
 import java.util.List;
 
 public interface BankService {
 
-    List<BankResponse> getAllBanks();
+    List<BankEntity> getAllBanksByUserId(String userId);
 
-    void addBank(BankRequest bankRequest);
+    void addBank(BankEntity bankDto);
+
+    void deleteBank(BankEntity bankDto);
 }

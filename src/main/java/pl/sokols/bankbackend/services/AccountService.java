@@ -1,13 +1,15 @@
 package pl.sokols.bankbackend.services;
 
-import pl.sokols.bankbackend.dtos.requests.AccountRequest;
-import pl.sokols.bankbackend.dtos.responses.AccountResponse;
+
+import pl.sokols.bankbackend.entities.AccountEntity;
 
 import java.util.List;
 
 public interface AccountService {
 
-    List<AccountResponse> getAllAccounts();
+    List<AccountEntity> getAllAccounts();
 
-    void addAccount(AccountRequest accountRequest);
+    List<AccountEntity> getAccountsByBankId(String bankId);
+
+    void addAccount(AccountEntity accountDto);
 }

@@ -2,8 +2,6 @@ package pl.sokols.bankbackend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.sokols.bankbackend.dtos.requests.AccountRequest;
-import pl.sokols.bankbackend.dtos.responses.AccountResponse;
 import pl.sokols.bankbackend.entities.AccountEntity;
 import pl.sokols.bankbackend.repositories.AccountRepository;
 
@@ -22,19 +20,28 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountResponse> getAllAccounts() {
+    public List<AccountEntity> getAllAccounts() {
         return StreamSupport.stream(accountRepository.findAll().spliterator(), false)
-                .map(entity -> new AccountResponse(entity.getOwnerName(), entity.getOwnerSurname(), entity.getAccountNumber(), entity.getBank()))
+                .map(entity -> new AccountEntity(entity.getId(), entity.getOwnerName(), entity.getOwnerSurname(), entity.getAccountNumber(), entity.getBank()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void addAccount(AccountRequest accountRequest) {
+    public List<AccountEntity> getAccountsByBankId(String bankId) {
+        return StreamSupport.stream(accountRepository.findAll().spliterator(), false)
+                .filter(account -> account.getBank().getId() == Integer.parseInt(bankId))
+                .map(entity -> new AccountEntity(entity.getId(), entity.getOwnerName(), entity.getOwnerSurname(), entity.getAccountNumber(), entity.getBank()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addAccount(AccountEntity accountDto) {
         AccountEntity entity = new AccountEntity();
-        entity.setOwnerName(accountRequest.getOwnerName());
-        entity.setOwnerSurname(accountRequest.getOwnerSurname());
-        entity.setAccountNumber(accountRequest.getAccountNumber());
-        entity.setBank(accountRequest.getBank());
+        entity.setId(accountDto.getId());
+        entity.setOwnerName(accountDto.getOwnerName());
+        entity.setOwnerSurname(accountDto.getOwnerSurname());
+        entity.setAccountNumber(accountDto.getAccountNumber());
+        entity.setBank(accountDto.getBank());
         accountRepository.save(entity);
     }
 }

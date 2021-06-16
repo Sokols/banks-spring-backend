@@ -3,17 +3,14 @@ package pl.sokols.bankbackend.controllers.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import pl.sokols.bankbackend.dtos.requests.BankRequest;
-import pl.sokols.bankbackend.dtos.responses.BankResponse;
+import org.springframework.web.bind.annotation.*;
+import pl.sokols.bankbackend.entities.BankEntity;
 import pl.sokols.bankbackend.services.BankService;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 public class BankController {
 
     private final BankService bankService;
@@ -23,16 +20,21 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping("/api/bank")
-    public ResponseEntity<List<BankResponse>> getBanks() {
-        List<BankResponse> banks = bankService.getAllBanks();
+    @GetMapping("/api/bank/{userId}")
+    public ResponseEntity<List<BankEntity>> getBanksByUserId(@PathVariable String userId) {
+        List<BankEntity> banks = bankService.getAllBanksByUserId(userId);
         return new ResponseEntity<>(banks, HttpStatus.OK);
     }
 
     @PostMapping("/api/bank")
-    public ResponseEntity addBank(@RequestBody BankRequest bankRequest) {
-        bankService.addBank(bankRequest);
-
+    public ResponseEntity addBank(@RequestBody BankEntity bankDto) {
+        bankService.addBank(bankDto);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/bank")
+    public ResponseEntity deleteBank(@RequestBody BankEntity bankDto) {
+        bankService.deleteBank(bankDto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

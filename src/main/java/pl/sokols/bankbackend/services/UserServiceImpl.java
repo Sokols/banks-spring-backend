@@ -2,8 +2,6 @@ package pl.sokols.bankbackend.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.sokols.bankbackend.dtos.requests.UserRequest;
-import pl.sokols.bankbackend.dtos.responses.UserResponse;
 import pl.sokols.bankbackend.entities.UserEntity;
 import pl.sokols.bankbackend.exceptions.login.UserNotFoundException;
 import pl.sokols.bankbackend.exceptions.login.WrongPasswordException;
@@ -26,29 +24,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponse> getAllUsers() {
+    public List<UserEntity> getAllUsers() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .map(entity -> new UserResponse(entity.getUsername(), entity.getEmail(), entity.getPassword()))
+                .map(entity -> new UserEntity(entity.getId(), entity.getUsername(), entity.getEmail(), entity.getPassword()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserEntity registerUser(UserRequest userRequest) throws UserExistsException {
-        if (userRepository.findByUsername(userRequest.getUsername()) != null) {
-            throw new UserExistsException("User " + userRequest.getUsername() + " already exists.");
+    public UserEntity registerUser(UserEntity userDto) throws UserExistsException {
+        if (userRepository.findByUsername(userDto.getUsername()) != null) {
+            throw new UserExistsException("User " + userDto.getUsername() + " already exists.");
         }
         UserEntity entity = new UserEntity();
-        entity.setUsername(userRequest.getUsername());
-        entity.setEmail(userRequest.getEmail());
-        entity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        entity.setId(userDto.getId());
+        entity.setUsername(userDto.getUsername());
+        entity.setEmail(userDto.getEmail());
+        entity.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(entity);
     }
 
     @Override
-    public UserEntity getUser(String username, String password) throws UserNotFoundException, WrongPasswordException {
-        UserEntity entity = userRepository.findByUsername(username);
+    public UserEntity getUser(String email, String password) throws UserNotFoundException, WrongPasswordException {
+        UserEntity entity = userRepository.findByEmail(email);
         if (entity == null) {
-            throw new UserNotFoundException(username + " not found.");
+            throw new UserNotFoundException(email + " not found.");
         } else if (!passwordEncoder.matches(password, entity.getPassword())) {
             throw new WrongPasswordException("Invalid password.");
         }
@@ -56,17 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity loginUser(UserRequest userRequest) {
-        UserEntity entity = new UserEntity();
-        entity.setUsername(userRequest.getUsername());
-        entity.setEmail(userRequest.getEmail());
-        entity.setPassword(userRequest.getPassword());
-        return userRepository.save(entity);
-    }
-
-    @Override
-    public void deleteUser(UserRequest userRequest) {
-        UserEntity entity = userRepository.findByUsername(userRequest.getUsername());
+    public void deleteUser(UserEntity userDto) {
+        UserEntity entity = userRepository.findByUsername(userDto.getUsername());
         userRepository.delete(entity);
     }
 }
