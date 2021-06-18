@@ -13,7 +13,6 @@ import pl.sokols.bankbackend.exceptions.register.UserExistsException;
 import pl.sokols.bankbackend.services.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
 
     private final UserService userService;

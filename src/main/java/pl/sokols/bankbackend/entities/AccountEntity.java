@@ -23,10 +23,13 @@ public class AccountEntity {
     @Column(name = "owner_surname", nullable = false)
     private String ownerSurname;
 
-    @Column(name = "account_number", nullable = false, unique = true)
+    @Column(name = "account_number", nullable = false)
     private String accountNumber;
 
     @ManyToOne
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
     private BankEntity bank;
+
+    @Column(name = "user_id", nullable = false)
+    private int userId;
 }

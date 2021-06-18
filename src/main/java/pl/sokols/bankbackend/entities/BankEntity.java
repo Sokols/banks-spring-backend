@@ -26,9 +26,6 @@ public class BankEntity {
     @Column(name = "country_code", nullable = false)
     private String countryCode;
 
-    @Column(name = "user_id", nullable = false)
-    private int userId;
-
     @Column(name = "bank_image_url")
     private String bankImageUrl;
 }

@@ -20,9 +20,9 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public List<BankEntity> getAllBanksByUserId(String userId) {
-        return StreamSupport.stream(bankRepository.findBankEntitiesByUserId(Integer.parseInt(userId)).spliterator(), false)
-                .map(entity -> new BankEntity(entity.getId(), entity.getBankName(), entity.getSwiftCode(), entity.getCountryCode(), entity.getUserId(), entity.getBankImageUrl()))
+    public List<BankEntity> getAllBanks() {
+        return StreamSupport.stream(bankRepository.findAll().spliterator(), false)
+                .map(entity -> new BankEntity(entity.getId(), entity.getBankName(), entity.getSwiftCode(), entity.getCountryCode(), entity.getBankImageUrl()))
                 .collect(Collectors.toList());
     }
 
@@ -33,7 +33,6 @@ public class BankServiceImpl implements BankService {
         entity.setBankName(bankDto.getBankName());
         entity.setSwiftCode(bankDto.getSwiftCode());
         entity.setCountryCode(bankDto.getCountryCode());
-        entity.setUserId(bankDto.getUserId());
         entity.setBankImageUrl(bankDto.getBankImageUrl());
         bankRepository.save(entity);
     }

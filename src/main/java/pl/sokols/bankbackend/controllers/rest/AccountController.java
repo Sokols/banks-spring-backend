@@ -10,7 +10,6 @@ import pl.sokols.bankbackend.services.AccountService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
 public class AccountController {
 
     private final AccountService accountService;
@@ -20,16 +19,16 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/api/account")
-    public ResponseEntity<List<AccountEntity>> getAccounts() {
-        List<AccountEntity> accounts = accountService.getAllAccounts();
+    @GetMapping("/api/account/{userId}/{bankId}")
+    public ResponseEntity<List<AccountEntity>> getAccountsByUserAndBankId(@PathVariable String userId, @PathVariable String bankId) {
+        List<AccountEntity> accounts = accountService.getAccountsByUserAndBankId(userId, bankId);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    @GetMapping("/api/account/{bankId}")
-        public ResponseEntity<List<AccountEntity>> getAccountsByBankId(@PathVariable String bankId) {
-        List<AccountEntity> accounts = accountService.getAccountsByBankId(bankId);
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    @DeleteMapping("/api/account/{accountId}")
+    public ResponseEntity removeAccountById(@PathVariable String accountId) {
+        accountService.removeAccount(accountId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/api/account")

@@ -10,7 +10,6 @@ import pl.sokols.bankbackend.services.BankService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
 public class BankController {
 
     private final BankService bankService;
@@ -20,9 +19,9 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping("/api/bank/{userId}")
-    public ResponseEntity<List<BankEntity>> getBanksByUserId(@PathVariable String userId) {
-        List<BankEntity> banks = bankService.getAllBanksByUserId(userId);
+    @GetMapping("/api/bank")
+    public ResponseEntity<List<BankEntity>> getBanks() {
+        List<BankEntity> banks = bankService.getAllBanks();
         return new ResponseEntity<>(banks, HttpStatus.OK);
     }
 

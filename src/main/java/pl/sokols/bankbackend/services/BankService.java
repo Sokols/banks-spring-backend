@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BankService {
 
-    List<BankEntity> getAllBanksByUserId(String userId);
+    List<BankEntity> getAllBanks();
 
     void addBank(BankEntity bankDto);
 
