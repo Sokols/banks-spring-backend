@@ -1,5 +1,11 @@
-INSERT INTO bank (id, bank_name, country_code, swift_code) values (1, "12341234", "PL", "TEST")
-INSERT INTO bank (id, bank_name, country_code, swift_code) values (2, "123412341234", "EN", "TEST2")
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('1', 'mBank', 'PL', 'BREXPLPWMBK', 'https://www.fxmag.pl/images/articles/mbank-mbank-logowanie-kontakt-profil-zaufany-najwazniejsze-informacje-ciekawostki-na-temat-mbank.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('2', 'Santander Bank', 'ES', 'WBKPPLPP', 'https://alebank.pl/wp-content/uploads/2018/04/santander-consumer-bank.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('3', 'PKO BP', 'PL', 'BPKOPLPW', 'https://prowly-uploads.s3.eu-west-1.amazonaws.com/uploads/3113/assets/156139/original-f272efc639b0ba6620d3e9774a3fac7b.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('4', 'Millenium', 'EN', 'BIGBPLPW', 'https://www.najlepszekonto.pl/thumbs/analysis_top/loga-bankow/logo-bank-millennium.png');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('5', 'ING Bank Śląski', 'PL', 'INGBPLPW', 'https://biuroprasowe.netpr.pl/m/sb-global-resources/ing/ing_socialimage.jpg');
 
-INSERT INTO account (id, account_number, owner_name, owner_surname, bank_id) values (1, "12341234", "Igor", "Sokół", 1)
-INSERT INTO account (id, account_number, owner_name, owner_surname, bank_id) values (2, "56785678", "Adam", "Abacki", 2)
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('6', 'CitiBank Handlowy', 'PL', 'CITIPLPX', 'https://www.tanie-konto.pl/wp-content/uploads/citi-handlowy-logo.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('7', 'Raiffeisen Bank', 'DE', 'RCBWPLPW', 'https://alebank.pl/wp-content/uploads/2020/03/raiffeisen-bank-international-logo-600x337.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('8', 'Deutsche Bank', 'DE', 'DEUTPLPX', 'https://kredytwpromocji.pl/wp-content/uploads/2019/01/Deutsche-Bank.jpg');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('9', 'Eurobank', 'PL', 'EBSAPLPW', 'https://www.newseria.pl/files/_uploaded/glownekonf_1553069766.png');
+INSERT INTO `banks`.`bank` (`id`, `bank_name`, `country_code`, `swift_code`, `bank_image_url`) VALUES ('10', 'Alior Bank', 'EN', 'ALBPPLPWXXX', 'https://www.cashless.pl/system/uploads/post/thumb_image/8307/alior_bank_logo.jpg');
